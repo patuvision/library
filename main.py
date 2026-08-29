@@ -16,11 +16,17 @@ b = {
 def search(query, data=None):
     if data is None:
         return "insert data"
-    
+
+    found = False
+
     for item in data:
         if query in item:
             print(item)
+            found = True
+
+    if not found:
         print("user not found")
+
 
 def dekarte(a, b):
     c = []
@@ -31,12 +37,13 @@ def dekarte(a, b):
 
     return c
 
+
 while True:
-    i = input("user ->")
+    i = input("user -> ")
 
     data = dekarte(a, b)
+
     if i == "all":
         print(data)
-    search(i, data)
-# [('ali', 'book1'), ('ali', 'book2'), ('ali', 'book3'), ('ali', 'book4'), ('amir', 'book1'), ('amir', 'book2'), ('amir', 'book3'), ('amir', 'book4'), ('mmd', 'book1'), ('mmd', 'book2'), ('mmd', 'book3'), ('mmd', 'book4'), ('saeed', 'book1'), ('saeed', 'book2'), ('saeed', 'book3'), ('saeed', 'book4')]
-# ('amir', 'book1'), ('amir', 'book2'), ('amir', 'book3'), ('amir', 'book4')
+    else:
+        search(i, data)
