@@ -1,23 +1,16 @@
 a = {
-    1: "ali",
-    2: "amir",
-    3: "mmd",
-    4: "saeed",
+    1: "Parham",
+    2: "Dadmehr",
+    3: "Hirad",
+    4: "Matin",
+    5: "Mohamad",
 }
 
-b = {
-    1: "book1",
-    2: "book2",
-    3: "book3",
-    4: "book4",
-}
+b = {1: "book1", 2: "book2", 3: "book3", 4: "book4", 5: "book5"}
 
 
 def suggestion(query, data):
-    suggestions = {
-        item for item in data
-        if item.startswith(query)
-    }
+    suggestions = {item for item in data if item.startswith(query)}
 
     if suggestions:
         print("\n  Suggestions:")
@@ -62,5 +55,7 @@ while True:
     if i == "all":
         print(data)
 
+    elif i == a.values():
+        search(i, a.values())
     else:
         suggestion(i, a.values())
