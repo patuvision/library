@@ -1,78 +1,66 @@
-from prompt_toolkit import PromptSession
-from prompt_toolkit.completion import WordCompleter
-
-
 a = {
     1: "ali",
     2: "amir",
     3: "mmd",
-    4: "saeed"
+    4: "saeed",
 }
 
 b = {
     1: "book1",
     2: "book2",
     3: "book3",
-    4: "book4"
+    4: "book4",
 }
 
 
-def dekarte(a, b):
-    data = []
+def suggestion(query, data):
+    suggestions = {
+        item for item in data
+        if item.startswith(query)
+    }
 
-    for name in a.values():
-        for book in b.values():
-            data.append((name, book))
+    if suggestions:
+        print("\n  Suggestions:")
 
-    return data
+        for i, item in enumerate(sorted(suggestions), 1):
+            print(f"  {i}. {item}")
 
-
-data = dekarte(a, b)
-
-
-# فقط اسم‌ها برای autocomplete
-names = list(a.values())
-
-completer = WordCompleter(
-    names,
-    ignore_case=True
-)
-
-session = PromptSession(
-    completer=completer,
-    complete_while_typing=True
-)
+    else:
+        print("\n  No suggestions")
 
 
-def search(name):
+def search(query, data=None):
+    if data is None:
+        return "insert data"
 
     found = False
 
-    for user, book in data:
-
-        if user.lower() == name.lower():
-            print(f"{user} -> {book}")
+    for item in data:
+        if query in item:
+            print(item)
             found = True
 
     if not found:
-        raise ValueError("User not found")
+        print("user not found")
+
+
+def dekarte(a, b):
+    c = []
+
+    for first in a.values():
+        for second in b.values():
+            c.append((first, second))
+
+    return c
 
 
 while True:
+    i = input("user -> ")
 
-    try:
+    data = dekarte(a, b)
 
-        name = session.prompt("user -> ")
+    if i == "all":
+        print(data)
 
-        if name == "exit":
-            break
-
-        search(name)
-
-    except ValueError as error:
-        print(error)
-
-    except KeyboardInterrupt:
-        print("\nProgram stopped")
-        break
-
+    else:
+        suggestion(i, a.values())
